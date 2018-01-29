@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Mon Jan 29 22:21:49 EET 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instance a816c00e-0161-4395-3bfd-00000f480530 
+on database directory D:\Facultate\PDtema\db\db-derby\AgendaEMail with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@504bae78 
+Loaded from file:/D:/Facultate/PDtema/Resurse/db-derby-10.14.1.0-bin/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=9.0.4+11
+user.dir=D:\Facultate\PDtema\db\db-derby
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

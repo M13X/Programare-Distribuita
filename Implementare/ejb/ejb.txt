@@ -1,0 +1,85 @@
+Vom dezvolta aplicatiile cu Glassfis sau Payara
+
+INSTALARE Payara
+Se dezarhiveaza Payara din Resurse/JavaSoft in folderul curent de lucru
+
+- Copiem in Providers din folderul curent de lucru folderul payara din Distr-1/Providers/JEE
+- Configuram startserv.bat si stopserv.bat cu caile corespunzatoare
+- Vom lucra cu java 8
+- Verificam daca functioneaza Payara: rulam startserv in consola -> trebuie sa spuna ca aplicatia a pornit cu succes pe portul 4848; scriem in browswer localhost:4848 -> trebuie sa apara pagina aplicatiei payara; oprim din consola aplicatia cu stopserv;
+- Copiem din Distr-1 folderul ejb in folderul curent de lucru
+
+APLICATIA stateless/annotation/cmmdc1
+1. Copiem un MyAnt si il configuram cu caile catre payara si java 8
+2. Executam MyAnt in consola -> se genereaza ejbcmmdc.war
+3. Pornim payara executand startserv in consola din folderul Providers/payara
+4. Facem deploy la aplicatie -> alegem fisierul war generat (asadmin deploy)
+5. Dam click pe launch la fisierul ejbcmmdc care apare in browswer 
+6. Selectam link-ul cu 8080-> se executa aplicatia cmmdc
+-----------
+Ca sa rulam aplicatia de pe alt calculator vom scrie http://IP_Calc:8080/ejbcmmdc, unde IP_Calc este adresa IP a calculatorului unde ruleaza Payara
+-----------
+Similar se poate dezvolta aplicatia si cu Glassfish
+
+Obs: Daca s-a mai dezvoltat o data aplicatia cu payara, atunci nu ne va lasa sa selectam inca o data fisierul war cu acelasi nume - va trebui sa il redenumiti sau sa ii dati redeploy la fisierul deja existent.
+
+APLICATIA stateless/annotation/cmmdc2
+1. Observam ca exista folderele cmmdc_ejb si cmmdc_web -> exista un client de ejb si un client web
+2. Copiem un MyAnt si il configuram cu caile catre payara si java 8
+3. Modificam fisierele build.xml din client, cmmdc_ejb si cmmdc_web astfel:
+- in loc de <property environment="env"/>
+- vom scrie <property name="GLASSFISH_HOME" value="cale_payara/payara41"/>
+- de la linia <fileset dir="${env.GLASSFISH_HOME}/glassfish/modules"> stregem "env."
+4. Executam MyAnt in consola -> se genereaza cmmdc-web.war in folderul dist din cmmdc_web
+                             -> se genereaza cmmdc-ejb.jar in folderul dist din cmmdc-ejb
+							 -> se genereaza cmmdc-ear.ear in folderul dist din cmmdc2 -> acesta este fisierul la care se face deploy in payara
+5. Pentru deploy in payara de va face redeploy la aplicatia precedenta pt ca fisierul care se va genera pe serverul web se va numi tot ejbcmmdc, ca cel la care s-a mai facut deploy o data.
+6. Se da click pe lik-ul cu ejbcmmdc:8080 si se ruleaza aplicatia
+-------------------------
+Clientul (cmmdc2/client) se poate rula individual:
+1. Se copiaza un MyAnt.bat in client
+2. se configureaza MyAnt si runclient
+3. Rulam in consola MyAnt
+4. Rulam in consola runclient
+5. Apare cmmdc-ul in consola
+--------------------------
+Similar se poate dezvolta aplicatia si cu Glassfish
+
+APLICATIA stateless/annotation/agendae
+1. Pornim payara executand startserv in consola din folderul Providers/payara
+2. Verificam in browser ca ne-am conectat la payara cu localhost:4848
+3. Copiem un startij in folderul agendae si il configuram cu calea catre serverul derby din payara..... si anume payara41\javadb
+4. Putem aventual sa copiem si fisierele CreateAgendaE.sql si ValuesAgendaE.sql in folderul agendae si sa le rulam in ij ca sa generam baza de date si in folderul curent.
+5. Modificam fisierele build.xml din client, agendae_ejb, agendae_entity si agendae_web astfel:
+- in loc de <property environment="env"/>
+- vom scrie <property name="GLASSFISH_HOME" value="cale_payara/payara41"/>
+- de la linia <fileset dir="${env.GLASSFISH_HOME}/glassfish/modules"> stregem env.
+6. Copiez un MyAnt.bat in folderul aplicatiei si il configurez
+7. Executam MyAnt in consola
+8. Se face deploy in payara la fisierul ear din folderul agendae/dist
+
+Rulam similar aplicatiile ejb/stateless/jndi
+
+APLICATIA ejb/entityDerby
+1. Pornim payara executand startserv in consola din folderul Providers/payara
+2. Verificam in browser ca ne-am conectat la payara cu localhost:4848
+2'. Mergeti in curs la Componenta EJB Entity si executati in payara configuratiile conform pasilor de acolo
+3. Intram in folderul entityDerby/db-derby pentru a crea baza de date.
+4. Modificam fisierul startij cu calea catre java 8 si derby-ul din payara -> la DEBY_HOME vom scrie calea catre payara41\javadb
+5. Rulam in consola fisierul startij
+6. Creem baza de date executand in ij comanda: run 'CreateAgendaE.sql';
+7. Populam baza de date executand in ij comanda: run 'ValuesAgendaE.sql'
+8. Testam baza de date executand in ij comanda: select * from adrese;
+9. Inchidem ij-ul cu comanda: exit;
+10. Modificam fisierele build.xml din client, agendae_ejb, agendae_entity si agendae_web astfel:
+- in loc de <property environment="env"/>
+- vom scrie <property name="GLASSFISH_HOME" value="cale_payara/payara41"/>
+- de la linia <fileset dir="${env.GLASSFISH_HOME}/glassfish/modules"> stregem env.
+11.  Executam MyAnt in consola
+12. Se face deploy in payara la fisierul ear din folderul agendae/dist
+
+Observatii:
+1. Nu este obligatoriu sa se ruleze aplicatiile ejb cu Payara sau Glassfish; se pot rula si simplu cu Tomcat
+2. In cazul in care le rulam cu tomcat va trebui sa modificam in build.xml calea catre tomcat, nu catre payara sau glassfish
+3. Asa cum am dezvoltat aplicatiile mai sus, am folosit serverul web Tomcat inclus in Payara
+4. Payara si Glassfish arata similar, dar Payara mai are rezolvate unele din problemele lui Glassfish

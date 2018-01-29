@@ -1,0 +1,1 @@
+insert into tablou(valori) values('12345136101514102035');

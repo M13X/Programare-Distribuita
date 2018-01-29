@@ -1,0 +1,45 @@
+CORBA-RMI/IIOP(Internet Inter Orb Protocol) - cu java 9
+1. Copiem MyAnt.bat in folderele i, s si c
+2. Configuram fisierele MyAnt.bat
+3. Din "i" executam in cmd MyAnt Compile
+4. Din "s" executam in cmd MyAnt Compile
+5. Din "s" executam in cmd MyAnt Orb pt a porni serviciul CORBA si lasam fereastra deoparte
+6. Din "s" executam intr-o alta fereastra cmd MyAnt Server pt a porni serverul si lasam fereastra jos
+7. Din "c" executam in cmd MyAnt Compile
+8. Din "c" executam in cmd - in loc de MyAnt Run pt ca nu merge - prima linie din readme.txt pentru a porni aplicatia client, si anume "java --add-modules java.corba -cp mods cmmdc.iiop.c.CmmdcClient"
+9. Inchidem ferestrele server si orb cu CTRL+C
+
+CORBA TEMPORAL - cu java 9
+1. Copiem din "i" fisierul Cmmdc.idl in "s" si in "c"
+2. Din "s" executam in cmd idl2java pt a transforma interfata din limbaj idl in limbajul java ... se genereaza folderul CmmdcApp cu 6 fisiere in el
+3. Din "s" executam in cmd compile pt a compila java-urile generate in CmmdcApp, dar si cele din src
+4. Din "s" executam in cmd startORB pt a porni serviciul CORBA si lasam fereastra deoparte
+5. Din "s" executam in cmd server pt a porni serverul si lasam fereastra jos
+6. Din "c" executam in cmd idl2java pt a transforma interfata din limbaj idl in limbajul java ... se genereaza folderul CmmdcApp cu 6 fisiere in el
+7. Din "c" executam in cmd compile pt a compila java-urile generate in CmmdcApp, dar si cele din src
+8. Din "c" executam in cmd client pt a porni aplicatia client
+9. Inchidem ferestrele server si orb cu CTRL+C
+
+CORBA PERSISTENT - cu java 8
+1. Copiem din "i" fisierul Cmmdc.idl in "s" si in "c"
+2. Din "s" executam in cmd idl2java pt a transforma interfata din limbaj idl in limbajul java ... se genereaza folderul CmmdcApp cu 6 fisiere in el
+3. Modificam compile.bat din "s" si in loc de javac scriem C:\Progra~1\Java\jdk1.8.0_151\bin\javac pt ca sa stie ca il folosim pe cel din jdk 8
+4. Din "s" executam in cmd compile pt a compila java-urile generate in CmmdcApp, dar si cele din src
+5. Modificam startORB.bat din "s" si in loc de orbd scriem C:\Progra~1\Java\jdk1.8.0_151\bin\orbd pt ca sa stie ca il folosim pe cel din jdk 8
+6. Din "s" executam in cmd startORB pt a porni serviciul CORBA si lasam fereastra deoparte
+7. Modificam stool.bat din "s" si in loc de servertool scriem c:\Progra~1\Java\jdk1.8.0_151\bin\servertool pt ca sa stie ca il folosim pe cel din jdk 8
+8. Modificam calea de dupa -classpath din stool.txt din "s" cu cea corecta pana la aplicatia folderul "s" curent
+9. Din "s" executam in cmd stool pt a porni aplicatia servertool care permite pornirea serverului ... acesta va porni prin rularea in aplicatia stool a primei linii din fisierul stool.txt
+10. Trebuie sa spuna ca serverul este inregistrat cu id-ul 257
+11. Rularea in aplicatia stool comanda quit pt a opri aplicatia
+12. Din "c" executam in cmd idl2java pt a transforma interfata din limbaj idl in limbajul java ... se genereaza folderul CmmdcApp cu 6 fisiere in 
+13. Modificam compile.bat din "c" si in loc de javac scriem C:\Progra~1\Java\jdk1.8.0_151\bin\javac pt ca sa stie ca il folosim pe cel din jdk 8
+14. Din "c" executam in cmd compile pt a compila java-urile generate in CmmdcApp, dar si cele din src
+15.Modificam client.bat din "c" si in loc de java scriem C:\Progra~1\Java\jdk1.8.0_151\bin\java pt ca sa stie ca il folosim pe cel din jdk 8
+16. Din "c" executam in cmd client pt a porni aplicatia client
+17. Pornim din nou din "s" stool.bat si rulam in el unregister -serverid 257 si apoi quit
+18. Inchidem ferestrele server si orb cu CTRL+C
+
+ALTERNATIVA PT CORBA PERSISTENT CU FISIERUL spath.bat CARE SETEAZA CALEA LA JAVA - CA SA NU O MAI TREC IN FIECARE FISIER CU COMENZI
+- Este la fel ca la CORBA PERSISTENT de mai sus, doar ca nu vom mai avea calea C:\Progra~1\Java\jdk1.8.0_151\bin\ pusa in scripturi, ci in fisierul spath.bat din folderul "persistent/cmmdc"
+- spath trebuie rulat in fiecare fereastra de cmd pe care o deschidem, pt ca nu va mai sti ca l-am rulat in fereastra anterioara si va trece inapoi pe java 9

@@ -1,0 +1,45 @@
+<project name="Client" default="Run" basedir=".">
+    <description>Client actions</description>
+  
+  <property name="path" location=".."/>
+  <property name="build.dir" value="mods"/>
+  <property name="stub.location" location="${path}/s/mods/cmmdc/rmi/i" />
+  <property name="host" value="localhost" />
+  <property name="port" value="1050" />
+  <property name="client-class" value="cmmdc.iiop.c.CmmdcClient" />
+
+  <path id="myclasspath">
+    <pathelement path="${build.dir}"/>
+  </path> 
+
+  <target name="Init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <delete dir="${build.dir}"/>
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${build.dir}/cmmdc/rmi/i"/>
+    <copy todir="${build.dir}/cmmdc/rmi/i">
+      <fileset dir="${stub.location}"
+        includes="*.class"/>
+    </copy>
+  </target>
+
+  <target name="Compile" depends="Init">
+    <javac srcdir="src" destdir="${build.dir}" classpathref="myclasspath"
+       includeantruntime="false">
+       <compilerarg value="-Xlint"/>
+    </javac>
+  </target>
+
+  <target name="Run" depends="Compile">    
+    <java classname="${client-class}" fork="true"
+      modulepath="mods" module="iiop">        
+      <arg line="${host} ${port}" />
+    </java>
+  </target>
+</project>
+
+
+
+
+

@@ -1,0 +1,45 @@
+INSTALARE server de baza de date DERBY (versiunea 10.14.1.0):
+1. Dezarhivez derby din TehnologiiDistribuiteJava/Resurse/appache -> db-derby10.14.1.0-bin
+
+Obs: SGBD-ul appache derby este inclus si in Glassfish. Daca am lucrat anterior cu Glassfish trebuie sa il opresc pt a putea porni separat derby-ul instalat individual.
+
+LUCRUL cu DB-DERBY:
+1. Copiez in folderul propriu de lucru din Distr1/db folderul db-derby
+2. Configurez din db-derby fisierele server.bat si startij.bat cu caile care trebuie
+3. Rulez in cmd server -> pornesc derverul de baze de date
+4. Rulez intr-un alt cmd startij -> pornesc aplicatia care imi permite sa scriu interogari sql in derby (nu are interfata grafica)
+5. Apare prompt-ul ij>
+6. Scriu in ij comanda: run 'CreateAgendaE.sql'; -> ; de la sfarsit este important pt ca nu executa comenzi fara ;
+(va crea baza de date numita AgendaEMail .... vazi interogarile din CreateAgendaE.sql)
+7. Scriu in ij comanda: run 'ValuesAgendaE.sql'; -> face cateva inserturi in tabela Adrese din baza de date creata mai sus
+8. Scriu in ij comanda: select * from Adrese; -> imi afiseaza datele din tabel
+9. exit; -> inchid aplicatia ij
+-------- MA RECONECTEZ LA BAZA DE DATE ---------
+1. Rulez in cmd startij
+2. Scriu in ij comanda: connect 'jdbc:derby:AgendaEMail'; -> ma conectez la baza de date
+3. Scriu in ij comanda: select * from Adrese; -> imi afiseaza datele din tabel
+4. exit; -> inchid aplicatia ij
+-------- MA RECONECTEZ LA BAZA DE DATE DIN EXTERIOR ---------
+1. Copiez fisierul startij.bat in alta parte (oriunde)
+2. Deschid un cmd de la locatia unde l-am copiat si rulez startij
+3. Scriu in ij comanda: connect 'jdbc:derby://localhost:1527/AgendaEMail'; -> ma conectez la baza de date
+4. Scriu in ij comanda: select * from Adrese; -> imi afiseaza datele din tabel
+5. exit; -> inchid aplicatia ij
+6. CTRL+C in fereastra in care ruleaza serverul de derby pt a-l opri
+
+Obs: 
+Daca foloseam aceeasi comanda de mai sus pt conectare la baza de date nu ar mai fi gasit-o pt ca nu mai era startij in acelasi folder cu baza de date;
+Portul 1527 este cel pe care ruleaza implicit derby -> vezi in fereastra ms-dos in care este rulat scriptul server.bat
+Daca vreau sa ma conectez la o baza de date de pe un server instalat pe un alt calculator scriu in loc de localhost adr IP a calculatorului respectiv -> iar eu nici nu mai trebuie sa am pornit un server de derby
+
+APLICATIA simple - cu java 9
+1. Copiez aplicatia simple din Distr1/anexe/db
+2. Citesc readme :D
+3. Conform cu ce scrie in readme creez in folder lib
+4. Copiez in lib derbyclient.jar din db-derby10.14.../lib (de acolo de unde l-am instalat) -> asta e driverul care face legatura intre SGBD si aplicatia mea
+5. Copiez un MyAnt.bat in simple si il configurez
+6. Rulez intr-un cmd MyAnt -> nu mai fac pasi individuali MyAnt compile, MyAnt run pt ca depind target-urile unele de altele
+7. Execut aplicatia conform indicatiilor cerute
+8. CTRL+C in fereastra in care ruleaza serverul de derby pt a-l opri
+
+Obs: Pt a rula aplicatia distribuit, am serverul pe un calc si aplicatia o rulez pe celelalte calc. Modific in src/AgendaE.java la linia 10 si scriu in loc de localhost adr IP a calc pe care ruleaza serverul de db-derby

@@ -1,0 +1,15 @@
+/* AUTOMATICALLY GENERATED ON Mon Jan 29 23:20:51 EET 2018*/
+/* DO NOT EDIT */
+
+grant {
+  permission javax.security.jacc.WebResourcePermission "/";
+  permission javax.security.jacc.WebUserDataPermission "/";
+};
+
+grant      principal * * {
+  permission javax.security.jacc.WebRoleRefPermission "jsp", "**";
+  permission javax.security.jacc.WebRoleRefPermission "", "**";
+  permission javax.security.jacc.WebRoleRefPermission "cmmdc.web.CmmdcServlet", "**";
+  permission javax.security.jacc.WebRoleRefPermission "default", "**";
+};
+

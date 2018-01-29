@@ -1,0 +1,12 @@
+/* AUTOMATICALLY GENERATED ON Mon Jan 29 23:20:51 EET 2018*/
+/* DO NOT EDIT */
+
+grant {
+  permission javax.security.jacc.EJBMethodPermission "CmmdcBean", "tablou,Local,int,int";
+  permission javax.security.jacc.EJBMethodPermission "CmmdcBean", "cmmdc,Local,long,long";
+};
+
+grant      principal * * {
+  permission javax.security.jacc.EJBRoleRefPermission "CmmdcBean", "**";
+};
+
