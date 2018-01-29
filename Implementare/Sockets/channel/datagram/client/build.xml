@@ -1,0 +1,35 @@
+<project name="DatagramChannel" default="Client" basedir=".">
+  <description>  Socluri TCP  </description>
+  
+  <!-- set global properties for this build -->
+  <property name="main.class" value="cmmdc.datagramchannel.c.CmmdcClient"/>
+  <property name="host" value="localhost"/>
+  <property name="port" value="7999"/>
+  <property name="build.dir" location="mods"/>
+  
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <delete dir="${build.dir}"/>
+    <mkdir dir="${build.dir}"/>
+  </target>
+
+  <target name="Compile" depends="init">
+    <javac srcdir="src" destdir="${build.dir}" includeantruntime="false">
+      <compilerarg value="-Xlint"/>
+    </javac>
+  </target>
+
+  <target name="Client" depends="Compile">
+    <java classname="${main.class}" fork="true"
+      modulepath="mods" module="client">
+      <arg line="${host} ${port}" />
+    </java>
+  </target>  
+</project>
+
+
+
+
+

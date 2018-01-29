@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<project name="cmmdc" default="Server" basedir=".">
+
+  <target name="Server">
+    <ant dir="server" target="Server"/>
+  </target>
+  
+  <target name="Client">
+    <ant dir="client" target="Client"/>
+  </target>
+  
+  <target name="Test">
+    <ant dir="test-junit" target="Test"/>
+  </target>  
+</project>
