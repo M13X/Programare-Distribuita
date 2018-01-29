@@ -1,0 +1,40 @@
+﻿<project name="Socket" default="Test" basedir=".">
+ 
+  <!-- set global properties for this build.dir -->
+  <property name="build.dir" location="build"/>
+
+  <path id="myclasspath">
+    <fileset dir="../lib">
+       <include name="*.jar"/>
+    </fileset> 
+    <pathelement path="${build.dir}"/>
+    <pathelement path="../server/mods"/>
+  </path>  
+  
+  <taskdef name="testng" classpathref="myclasspath"
+          classname="org.testng.TestNGAntTask" />
+
+  <target name="init.test">
+    <delete dir="${build.dir}" />
+    <mkdir dir="${build.dir}" />
+  </target>
+
+  <target name="Compile.test" depends="init.test">
+    <javac srcdir="src" destdir="${build.dir}" 
+       classpathref="myclasspath"  includeantruntime="false">
+      <compilerarg value="-Xlint"/>
+    </javac>       
+  </target>
+  
+  <target name="Test" depends="Compile.test">
+    <echo message="Aplicatia server NU trebuie sa fie activa"/>
+    <testng classpathref="myclasspath" groups="base">
+        <classfileset dir="${build.dir}" includes="cmmdc/socket/test/*.class"/>
+    </testng>
+  </target>  
+</project>
+
+
+
+
+

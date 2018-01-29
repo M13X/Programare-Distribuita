@@ -1,0 +1,45 @@
+<project name="Socket" default="Client" basedir=".">
+  <description>  Socluri TCP  </description>
+  
+  <!-- set global properties for this build -->
+  <property name="build" location="mods"/>
+  <property name="src" location="src" />
+  <property name="host" value="localhost"/>
+  <property name="port" value="7999"/>
+  
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <delete dir="${build}"/>
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="Compile" depends="init" description="compile the source " >
+    <javac srcdir="${src}" destdir="${build}" includeantruntime="false">
+       <compilerarg value="-Xlint"/>
+    </javac>
+  </target>
+
+  <target name="Client" depends="Compile">
+    <java classname="cmmdc.socket.client.CmmdcClient" fork="true"
+      modulepath="mods" module="client">
+      <arg line="${host} ${port}" />
+    </java>
+  </target>  
+  
+  <target name="SwingClient" depends="Compile">
+    <java classname="cmmdc.socket.client.VisualCmmdcClient" fork="true"
+    modulepath="mods" module="client"/>
+  </target>
+  
+  <target name="FXClient" depends="Compile">
+    <java classname="cmmdc.socket.client.ClientFXCmmdc" fork="true"
+    modulepath="mods" module="client"/>
+  </target>  
+</project>
+
+
+
+
+

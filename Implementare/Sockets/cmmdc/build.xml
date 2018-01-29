@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<project name="cmmdc" default="Server" basedir=".">
+
+  <target name="Server">
+    <ant dir="server" target="Server"/>
+  </target>
+  
+  <target name="Client">
+    <ant dir="client" target="Client"/>
+  </target>
+  
+  <target name="SwingClient">
+    <ant dir="client" target="SwingClient"/>
+  </target>
+  
+  <target name="FXClient">
+    <ant dir="client" target="FXClient"/>
+  </target>
+  
+  <target name="TestJunit">
+    <ant dir="test-junit" target="Test"/>
+  </target>
+  
+  <target name="TestNG">
+    <ant dir="test-ng" target="Test"/>
+  </target>
+</project>
