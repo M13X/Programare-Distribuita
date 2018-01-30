@@ -1,0 +1,39 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="mycss.css">
+</head>  
+<body>
+  <center>
+  <h1> Pagina de apelare Tablou </h1>
+  <form method="get"
+      action="/myservlet/cmmdc">  
+      <table> 
+        <tr>
+          <td><label> Numar linii </label></td>
+          <td>    
+             <input type="number" name="n" size="5" 
+             placeholder="introduceti"
+             required min="1">
+          </td>
+        </tr>  
+        <tr>
+          <td><label> Numar coloane </label></td>
+          <td>
+             <input type="number" name="d" size="5" 
+             placeholder="introduceti"
+             required min="1"">
+          </td>
+        </tr>
+        <tr>
+          <td>          
+             <p><input type="submit" value="Calculeaza">
+          </td>
+        </tr>
+      </table>  
+      <input type="hidden" name="tip" value="text/html" >
+  </form>
+  </center>
+</body>
+</html>
+
