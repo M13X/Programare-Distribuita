@@ -1,0 +1,209 @@
+Pentru SERVLET vom folosi ca server web TOMCAT-ul. Mai tarziu vom folosi si JETTY
+INSTALARE TOMCAT
+1. Se dezarhiveaza tomcat din TehnologiiDistribuiteJava/Resurse/apache/Tomcat 9..
+2. Copiem din Distr1/Providers/ServerWeb/appache-tomcat fisierele tomcat.bat so tomcat0.bat in folderul apache-tomcat-9.0.1, acolo unde s-a dezarhivat tomcat-ul
+3. Modificam tomcat si tomcat0 cu caile corecte catre tomcat (la CATALINA_HOME) si catre java (lucram cu java 9)
+4.In tomcat.bat se face referire la fisierul startup.bat din folderul "bin" din instalarea lui tomcat, cel care porneste serverul web "tomcat"
+5.In tomcat0.bat se face referire la fisierul shutdown.bat din folderul "bin" din instalarea lui tomcat, cel care opreste serverul web "tomcat"
+6.Intram in folserul appache-tomcat-9.0.1/conf si deschidem fisierul "tomcat-users.xml" pentru editare
+7. Decomentam din acest fisier ultimele 5 linii comentate, cele cu <role> si <user>
+8. Copiem apoi prima linie cu <role> si o punem deasupra acesteia, iar la role-name dam "manager-gui"
+9. Copiem apoi ultima linie cu <user> si o punem sub aceasta, la username dam valoarea "manager", iar la roles dam "manager-gui"
+10. Peste tot unde scrie la parola "<must be changed>" punem aceeasi valoare ca la username.
+11. Pornesc serverul web tomcat din cmd cu tomcat.bat din apache-tomcat-9 ... va spune la sfarsit "server startup in x ms"
+12. In browser scriem localhost:8080 -> trebuie sa vad motanul :D (asta inseamna ca a pornit serverul web)
+13. Pentru a executa o aplicatie cu tomcat, aceasta trebuie sa se gaseasca in folderul webapps care se gaseste in instalarea lui tomcat (in folderul appache-tomcat-9)
+14. Opresc serverul web din cmd cu tomcat0.bat din apache-tomcat-9
+
+APLICATIA anexe/http/request
+(arata care este structura unui mesaj http-request - de cerere - catre serverul web)
+(acest mesaj se genereaza din formular, in momentul apasarii unui buton submit - buton care emite o cerere catre server)
+1. Pornesc serverul web tomcat din cmd cu tomcat.bat din apache-tomcat-9
+2. Compilez aplicatia din linia de comanda cu javac *.java
+3. Execut aplicatia in linie de comanda cu java RequestHTTPMsg
+4. Aplicatia ruleaza si se poate executa rula in browser
+5. Creez un folser req in folderul webapps din apache-tomcat-9
+6. Copiez in req fisierul index.html din http/request
+7. Scriu in browser localhost:8080/req .... se deschide index.html de pe serverul web
+8. Introduc un nume si dau click pe butonul "Apeleaza" ... atunci se creeaza cererea catre server
+9. Ma intorc in cmd-ul unde ruleaza aplicatia RequestHTTPMsg si voi vedea ca s-a afisat continutul cererii catre server
+10. Opresc aplicatia cu CTRL+C si serverul web din cmd cu tomcat0.bat
+
+APLICATIA servlet30/helloDescriptiv
+1. Pornesc serverul web tomcat din cmd cu tomcat.bat din apache-tomcat-9
+2. Copiez un fisier MyAnt.bat in helloDescriptiv si il configurez
+3. Configurez build.xml cu calea care trebuie pentru TOMCAT_HOME
+4. Creez un folder lib in folderul web/WEB-INF din helloDescriptiv
+5. In linie de comanda apelez MyAnt pentru a compila aplicatia si a genera fisierul cu extensia war in folderul dist
+(Obs: Dupa prima compilare spune BUILD FAILED pt ca nu gaseste folderul lib in folderul web/WEB-INF care s-a generat, dar il creem de mana acolo si rulam din nou MyAnt in consola -> acum trebuie sa zica BUILD SUCCESSFUL)
+6. Copiez fisierul cu extensia war (apphelloD.war) in webapps din folderul cu instalarea lui tomcat
+7. Se genereaza astfel aplicatia si pe server - se va crea folderul apphelloD in webapps
+8. Scriu in browser localhost:8080/apphelloD
+9. In browser se va deschide index.html din folerul generat apphelloD
+10. Opresc serverul web din cmd cu tomcat0.bat
+------------------------------------------------
+11. Pentru a rula aplicatia de pe alt calculator, scriu in browser adresa IP a calc respectiv:8080/apphelloD 
+
+APLICATIA servlet30/helloProgramat -> se ruleaza la fel
+(diferenta este ca aceasta aplicatie are si adnotari)
+
+APLICATIA servlet30/async/embeded sau lambda -> se ruleaza la fel (astea sunt cu Cmmdc, nu cu Hello)
+(la aplicatiile de la async, spre deosebire de cele precedente care au tot servletul intr-un singur fir de executie, servletul porneste un alt fir de executie care executa cererea clientului)
+--------------------------------------------------
+OBS: Pentru a rula aplicatia in retea scriu in browser http://adrIP:8080/asyncservlet
+- tomcatul ramane pornit pe un singur calculator, iar de pe celelalte se va rula aplicatia
+- adrIP este adresa IP a calculatorului pe care ruleaza serverul web tomcat
+- asyncservlet este numele aplicatiei care se genereaza pe server dupa ce mutam .war-ul in webapps
+
+APLICATIA anexe/http/response
+(arata care este structura unui mesaj http-response - de de raspuns - din partea serverului web)
+1. Pornesc serverul web tomcat din cmd cu tomcat.bat din apache-tomcat-9
+2. Copiez un fisier MyAnt.bat in response/servlet si il configurez
+3. Configurez build.xml cu calea care trebuie pentru TOMCAT_HOME
+4. In linie de comanda apelez MyAnt pentru a compila aplicatia si a genera fisierul cu extensia war in folderul dist
+5. Copiez fisierul cu extensia war (apphello.war) in webapps din folderul cu instalarea lui tomcat
+6. Se genereaza astfel aplicatia si pe server - se va crea folderul apphello in webapps
+7. Scriu in browser localhost:8080/apphello
+8. In browser se va deschide index.html din folerul generat apphello
+9. Introduc un nume, dau click pe buton si structura raspunsului de la server se va afisa in pagina web
+10. Pentru a vedea si codul html al raspunsului voi compila si executa aplicatia ResponseHTTPMsg din response
+11. Scriu in consola javac ResponseHTTPMsg.java
+12. Scriu in consola java ResponseHTTPMsg
+13. Imi va aparea raspunsul in consola, dar si intr-un fisier output.txt care se va genera
+14. Opresc serverul web din cmd cu tomcat0.bat
+
+APLICATIA servlet31/nbcmmdc
+1. Se poate rula cu tomcat ca si celelalte aplicati
+----------- DAR O VOM RULA CU GLASFISH ---------------
+Cu Glasfish, vom rula aplicatia cu java 8
+1. Opresc serverul web tomcat cu tomcat0 daca acesta cumva ruleaza deja
+2. Generez fisierul .war ca si mai sus (doar ca MyAnt va fi setat cu jdk 8 l JAVA-HOME, iar in build.xml comentez <property name="TOMCAT_HOME" ... /> si decomentez <property name="GLASFISH_HOME" ... /> si mai comentez <fileset dir="${TOMCAT_HOME}.....> si decomentez <fileset dir="${GLASFISH_HOME} .....>)
+3. Pornesc Glasfish cu "startserv" din Providers/JEE/glasfish
+4. Scriu in browser localhost:4848
+5. De pe pagina de home dam click pe "Deploy an application"
+6. Click pe "browse" si aleg fisierul .war generat anterior (e in folderul dist si se numeste nonblocking.war)
+7. La sectiunea "Context Root" imi va aparea /nonblocking urmat de niste numere ...... pe care trebuie neaparat sa le sterg de mana
+8. Click pe butonul "OK" si apare link catre aplicatia nonblocking
+9. Merg la Action si dau click pe "Launch" -> apar 2 link-uri unul cu http://statiaX:8080/nonblocking si altul cu http://statiaX:8181/nonblocking
+10. Selectez pe cel cu portul 8080
+11. Apare formularul cu CMMDC si il execut
+12. Va aparea rezultatul executiei cmmdc-ului
+
+APLICATIA servlet31/upgrade -> se ruleaza la fel
+
+APLICATIA servlet30/myservlet
+1. Pornesc serverul web tomcat din cmd cu tomcat.bat din apache-tomcat-9
+2. Copiez un fisier MyAnt.bat in myservlet si il configurez
+3. Configurez build.xml cu calea care trebuie pentru TOMCAT_HOME
+4. In linie de comanda apelez MyAnt pentru a compila aplicatia si a genera fisierul cu extensia war in folderul dist
+5. Copiez fisierul cu extensia war (myservlet.war) in webapps din folderul cu instalarea lui tomcat
+6. Se genereaza astfel aplicatia si pe server - se va crea folderul myservlet in webapps
+7. Scriu in browser localhost:8080/myservlet
+8. In browser se va deschide index.html din folerul generat myservlet
+9. Sunt link-uri catre mai multe aplicatii
+10. Exemplificati diferenta dintre "session" si "cookie"
+11. Opresc serverul web din cmd cu tomcat0.bat
+
+APLICATIA servlet30/filtru
+-sunt 2 aplicatii acolo: descriptiv si programat care se ruleaza la fel.....am ales descriptiv
+(Filtrul actioneaza asupra contextului aplicatiei - pot exista mai multe servleturi in aplicatie si atunci pot sa comand care este calea de navigatie -> sa indic servletul care sa ruleze)
+1. Pornesc serverul web tomcat din cmd cu tomcat.bat din apache-tomcat-9
+2. Atat descriptiv cat si programat nu au build.xml .... asa ca nu se vor rula cu ant, ci de mana
+3. Copiez in filtru/filtrud, fisierul cpath.bat din Providers/ServerWeb/appache-tomcat (din Distr1, daca nu il am deja in folderul de lucru)
+4. Configurez calea catre tomcat in fisierul cpath.bat
+5. Rulez in consola cpath
+6. Intru apoi in WEB-INF/classes
+7. Execut de acolo javac *.java
+8. Iau tot folderul filtrud si il pun in tomcat/webapps
+9. Scriu in browser localhost:8080/filtrud pentru a rula servletul aplicatiei cmmdc
+10. Opresc serverul web din cmd cu tomcat0.bat
+
+SERVLET CU BAZE DE DATE:
+
+A) Cu db-derby
+APLICATIA servlet30/adreseEmail
+1. Verificam intai sa vedem daca mai functioneaza conexiunea la baza de date AgendaEmail creata la un laborator anterior
+	- pornesc din db/db-derby serverul de baze de date prin apelul lui server.bat
+	- pornesc aplicatia ij ca sa ma conectez la server si sa scriu interogari prin apelul lui startij.bat
+	- scriu in ij connect 'jdbc:derby:AgendaEmail';
+	- scriu in ij select * from Adrese;
+	- scriu in ij exit;
+2. Daca functioneaza baza de date, pornim si serverul web tomcat din consola cu tomcat.bat
+3. Citesc readme si creez folderul lib in web/WEB-INF
+4. Adaug in lib conectorul la baza de date derbyclient.jar din folderul lib din instalarea lui derby
+5. Configurez build.xml cu calea catre tomcat
+6. Copiez in MyAnt si il configurez
+7. Rulez MyAnt
+8. Copiez fisierul agendae.war in tomcat/webapps
+9. Scriu in browser localhost:8080/agendae ca sa rulez aplicatia
+10. Opresc serverul web din cmd cu tomcat0.bat
+---------------- Executie in retea ----------------------------
+1) BD pe un calculator; tomcat si aplicatia web pe fiecare dintre celelalte calculatoare
+- calculatoarele pe care ruleaza tomcat si aplicatia web opresc serverul de baze de date cu CTRL+C
+- se va face verificarea ca merge conexiunea la baza de date astfel:
+	a. pornesc ij cu startij
+	b. scriu in ij connect 'jdbc:derby:/adresa IP a calc pe care ruleaza derby:1527/AgendaEmail';
+	c. scriu in ij select * from Adrese;
+	d. exit;
+- daca merge conexiunea, modific in adreseEmail/src/AgendaEmailServlet.java
+- in loc de localhost scriu adresa IP a calc pe care ruleaza derby
+- rulez MyAnt
+- desfasor aplicatia in webapps
+2) BD pe un calculator; tomcat pe un calculator; aplicatia web pe celelalte calculatoare
+- nu fac decat sa opresc serverul web cu tomcat0.bat si sa schimb calea din browser la executia aplicatiei -> in loc de localhost sa scriu adresa IP a calc pe care ruleaza tomcat-ul
+
+B) Cu MySQL
+APLICATIA servlet30/adreseEmail
+1. Instalez MySQL prin dezarhivarea lui in folderul de lucru din Resurse/Oracle (in folderul obtinut este un subfolder data in care se vor pune bazele de date d.p.d.v. fizic)
+2. Creez baza de date AgendaEmail cu MySQL din db/db-mysql/v5.7/nonsecured (pt varianta secured trebuie sa ma autentific la mysql cu parola)
+3. Modific server.bat
+4. Execut in consola server.bat -> pornesc serverul de MySQL
+5. Modific agendaEmail.bat
+6. Execut in consola agendaEmail.bat -> verific in mysql/data daca a aparut baza de date
+7. Modific session.bat
+8. Execut in consola session.bat -> imi apare un prompt mysql> unde pot executa interogari ca in ij
+9. Scriu in aceasta aplicatie use 'AgendaEmail';
+10. Scriu select * from Adrese;
+11. Daca merge selectul, scriu exit;
+------------------------------------------------
+Dupa ce am creat baza de date si am vazut ca merge, ne intoarcem la servlet30/adreseEmail ca sa o executam cu baza de date din MySQL
+1. Modific in src/AgendaEmailServlet si decomentez liniile cu mysql si le comentez pe cele cu derby
+2. Recompilez si execut aplicatia cu MyAnt ... ca si mai sus
+
+APLICATIA servlet30/embeded/appache-tomcat
+1. Se creaza folderul lib conform cu ceea ce scrie in readme.txt
+2. Se copiaza in lib jar-urile din Resurse/appache/Tomcat9/tomcat-embeded
+3. Se copiaza un MyAnt.bat in folderul aplicatiei si se configureaza
+4. Executa in consola MyAnt -> nu va mai crea folderul dist cu un fisier .war in el, ci doar compileaza sursele java in build
+5. Nu vom mai copia aplicatia in webapps, ci rulam aplicatia cu dublu click pe cmmdc.html si hello.html direct de acolo; dupa introducerea datelor vom vedea ca acestea sunt trimise la server totusi
+
+------------------------------------------------------------------
+INSTALARE SI CONFIGURARE JETTY
+- Se dezarhiveaza in folderul de lucru din Resurse/JavaSoftware
+Obs: Jetty lucreaza pe C:/Users/Default/appdata/Local
+- Pentru configurarea providerului se copiaza in folderul Providers din folderul de lucru, folderul jetty din Distr1/Providers/ServerWeb
+- Configurez cpath cu calea catre jetty
+- Execut intr-o fereastra de msdos cpath.bat
+- Copiez jetty.bat in folderul cu instalarea lui jetty
+- Execut intr-o fereastra de msdos jetty.bat (din distributia lui jetty)
+- Deschid browserul si scriu localhost:8080 -> trebuie sa apara un link cu Powered by jetty
+- Dau click pe acel link si se deschide pagina cu eclipse si jetty
+- Pentru a opri jetty dau CTRL+C in fereastra in care acesta ruleaza
+------------------------------------------------------------------
+
+APLICATIA servlet30/embeded/jetty -> se ruleaza la fel
+
+APLICATIA servlet30/maven/servlet30/helloname -> vom dezvolta un servlet cu Maven si nu cu Ant
+(La Ant, sablonul aplicatiei nu este fixat, ci pot crea ce structura doresc pentru aplicatie si configurez cu acea structura build.xml, ca sa stie cum face caile; La Maven exista un archetype care fixeaza apriori numele si structurile de foldere)
+1. Configurez maven.bat
+2. Rulam in consola maven (bat-ul)
+3. Rulam in consola build (bat-ul) -> se genereaza aplicatia helloname acolo in folder .... aceea este aplicatia pe care o vom rula
+4. Din celalalt helloname copiem continutul lui xpom.xml peste pom.xml cel generat in aplicatie
+5. Schimbam versiunea de jetty-maven cu 9.4.8.v20171121 in pom.xml
+6. Punem continutul lui src/main/java in src/main/resources din aplicatia generata (punem tot folderul hello)
+7. Mutam continutul lui src/main/webapp peste src/main/webapp din aplicatia generata
+8. In consola in care am rulat maven si build scriem cd helloname ca sa intram in folderul aplicatiei generate
+9. Scriem in consola mvn clean package -> compileaza aplicatia si se genereaza folderul target cu aplicatia compilata si fisierul .war creat
+10. Scriem in consola mvn jetty:run -> descarca de pe internet dependintele pt serverul web jetty (nu trebuie sa il am instalat pe calculator) pt a le include in proiect si apoi porneste serverul jetty
+11. In browser scriem localhost:8080 -> imi apare pagina de hello
+12. Pentru a opri jetty dau CTRL+C in fereastra in care acesta ruleaza
