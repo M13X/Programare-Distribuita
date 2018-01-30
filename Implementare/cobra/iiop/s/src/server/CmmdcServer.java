@@ -20,7 +20,7 @@ public class CmmdcServer {
       System.setProperty("java.naming.provider.url","iiop://"+host+":"+port);
       Context ctx = new InitialContext();
       ctx.rebind("CmmdcService", cmmdcRef );
-      System.out.println("Cmmdc Server: Ready...");
+      System.out.println("Server: Ready...");
       System.out.println("Press CTRL+C to finish !");
     }
 	  catch (Exception e) {

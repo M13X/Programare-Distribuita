@@ -75,8 +75,16 @@ public class _ICmmdc_Stub extends Stub implements ICmmdc {
                         out.write_long(arg0);
                         out.write_long(arg1);
                         in = _invoke(out);
-						int rez[] = new int[arg0];
-                        return in.read_long_array(rez,0,arg0*arg1);
+						int rez[][] = new int[arg0][arg1];
+						for(int i =0;i<arg0;i++)
+						{
+							for(int j=0;j<arg1;j++)
+							{
+								rez[i][j]= in.read_long();
+							}
+						}
+						//rez = in.read_Object();
+                        return rez;
                     } catch (ApplicationException ex) {
                         in = ex.getInputStream();
                         String $_id = in.read_string();
@@ -89,6 +97,7 @@ public class _ICmmdc_Stub extends Stub implements ICmmdc {
                 } catch (SystemException ex) {
                     throw Util.mapSystemException(ex);
                 }
+				//return tablou(arg0, arg1);
             } else {
                 ServantObject so = _servant_preinvoke("tablou",ICmmdc.class);
                 if (so == null) {

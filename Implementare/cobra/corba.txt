@@ -9,6 +9,8 @@ CORBA-RMI/IIOP(Internet Inter Orb Protocol) - cu java 9
 8. Din "c" executam in cmd - in loc de MyAnt Run pt ca nu merge - prima linie din readme.txt pentru a porni aplicatia client, si anume "java --add-modules java.corba -cp mods cmmdc.iiop.c.CmmdcClient"
 9. Inchidem ferestrele server si orb cu CTRL+C
 
+https://books.google.ro/books?id=Vk3REMF9lIAC&pg=PA181&lpg=PA181&dq=org.omg.CORBA.portable.InputStream+array+of+array&source=bl&ots=138qhK3wg3&sig=0RlZ8wdQ6Ppo8JIKkHnqCidsREk&hl=ro&sa=X&ved=0ahUKEwiklZrV3P7YAhXEDMAKHVKUDQQQ6AEIVjAG#v=onepage&q=org.omg.CORBA.portable.InputStream%20array%20of%20array&f=false
+
 CORBA TEMPORAL - cu java 9
 1. Copiem din "i" fisierul Cmmdc.idl in "s" si in "c"
 2. Din "s" executam in cmd idl2java pt a transforma interfata din limbaj idl in limbajul java ... se genereaza folderul CmmdcApp cu 6 fisiere in el

@@ -42,8 +42,7 @@ public class CmmdcImpl extends PortableRemoteObject
 					T[i][j]+=P[i][k];
 				}
 			}
-		}
-		
+		}	
 		return T;
 	}
 }
